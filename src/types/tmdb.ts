@@ -86,7 +86,7 @@ export interface TVShow {
   adult?: boolean;
   backdrop_path?: string;
   created_by?: CreatedBy[];
-  episode_run_time?: any[];
+  episode_run_time?: unknown[];
   first_air_date?: string;
   genres?: Genre[];
   homepage?: string;
