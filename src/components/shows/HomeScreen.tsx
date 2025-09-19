@@ -6,57 +6,51 @@ import {
   useTopRatedTVShows,
   useTrendingTVShows,
 } from "@/hooks/useTMDBService";
+import { RowSkeleton } from "../common/row-skeleton";
 import ContentRow from "./ContentRow";
 
-function HomeScreen() {
-  const { data: trendingShowsData, isPending: trendingShowsPending } =
-    useTrendingTVShows();
-  const { data: popularShowsData, isPending: popularShowsPending } =
-    usePopularTVShows();
-  const { data: onTheAirShowsData, isPending: onTheAirShowsPending } =
-    useOnTheAirTVShows();
-  const { data: topRatedShowsData, isPending: topRatedShowsPending } =
-    useTopRatedTVShows();
-  const { data: airingTodayShowsData, isPending: airingTodayShowsPending } =
-    useAiringTodayTVShows();
+const SHOW_SECTIONS_CONFIG = [
+  {
+    key: "trending",
+    title: "Trending Now",
+    hook: useTrendingTVShows,
+  },
+  {
+    key: "topRated",
+    title: "Top Rated",
+    hook: useTopRatedTVShows,
+  },
+  {
+    key: "popular",
+    title: "Popular Shows",
+    hook: usePopularTVShows,
+  },
+  {
+    key: "airingToday",
+    title: "Airing Today",
+    hook: useAiringTodayTVShows,
+  },
+  {
+    key: "onTheAir",
+    title: "Currently Airing",
+    hook: useOnTheAirTVShows,
+  },
+] as const;
 
+function HomeScreen() {
   return (
-    <div>
-      {trendingShowsData && (
-        <ContentRow
-          title="Trending"
-          shows={trendingShowsData.results}
-          isLoading={trendingShowsPending}
-        />
-      )}
-      {topRatedShowsData && (
-        <ContentRow
-          title="Top Rated"
-          shows={topRatedShowsData.results}
-          isLoading={popularShowsPending}
-        />
-      )}
-      {popularShowsData && (
-        <ContentRow
-          title="Popular"
-          shows={popularShowsData.results}
-          isLoading={onTheAirShowsPending}
-        />
-      )}
-      {airingTodayShowsData && (
-        <ContentRow
-          title="Airing Today"
-          shows={airingTodayShowsData.results}
-          isLoading={topRatedShowsPending}
-        />
-      )}
-      {onTheAirShowsData && (
-        <ContentRow
-          title="Currently Airing"
-          shows={onTheAirShowsData.results}
-          isLoading={airingTodayShowsPending}
-        />
-      )}
+    <div className="space-y-8 pt-6 pb-20">
+      {SHOW_SECTIONS_CONFIG.map(({ key, title, hook }) => {
+        const { data, isPending } = hook();
+
+        if (isPending) {
+          return <RowSkeleton key={key} />;
+        }
+
+        return (
+          <ContentRow key={key} title={title} shows={data?.results || []} />
+        );
+      })}
     </div>
   );
 }

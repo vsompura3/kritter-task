@@ -1,25 +1,25 @@
 "use client";
 
 import { TVShow } from "@/types/tmdb";
-import CardSkeleton from "../common/card-skeleton";
-import ContentCard from "./ContentCard";
+import { ContentCard } from "./ContentCard";
 
 interface Props {
   title: string;
-  isLoading: boolean;
   shows: TVShow[];
 }
 
-export default function ContentRow({ title, shows, isLoading }: Props) {
+export default function ContentRow({ title, shows }: Props) {
   return (
-    <section className="mb-6">
-      <h2 className="mb-3 px-4 text-xl font-semibold md:text-2xl">{title}</h2>
-      <div className="scrollbar-hide flex space-x-3 overflow-x-auto px-4">
-        {isLoading
-          ? Array.from({ length: 6 }).map((_, idx) => (
-              <CardSkeleton key={idx} />
-            ))
-          : shows?.map((show) => <ContentCard key={show.id} show={show} />)}
+    <section className="space-y-2 pl-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-foreground ml-2 text-2xl font-bold md:text-xl">
+          {title}
+        </h2>
+      </div>
+      <div className="scrollbar-hide flex gap-4 overflow-x-auto p-2">
+        {shows.map((show) => (
+          <ContentCard key={show.id} show={show} />
+        ))}
       </div>
     </section>
   );

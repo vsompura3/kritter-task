@@ -6,9 +6,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getImageUrl = (path: string | null | undefined, size = "w500") => {
+export const getPosterImageUrl = (
+  path: string | null | undefined,
+  size = "w500",
+) => {
   if (!path) return "/placeholder.png";
-  return `https://image.tmdb.org/t/p/${size}${path}`;
+  return `${process.env.NEXT_PUBLIC_TMDB_IMAGE_PREFIX_URL}/${size}${path}`;
 };
 
 export const apiPayloadWithDefaults = <T>(data: T): TMDBRequestBody<T> => {

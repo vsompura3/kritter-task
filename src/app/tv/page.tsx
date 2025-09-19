@@ -1,3 +1,5 @@
+import { Header } from "@/components/common/header";
+import { HeroSection } from "@/components/shows/HeroSection";
 import HomeScreen from "@/components/shows/HomeScreen";
 import { tmdbQueryKeys } from "@/lib/constant";
 import { makeQueryClient } from "@/lib/queryClient";
@@ -38,12 +40,30 @@ async function TVPage() {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <HomeScreen />
+        <div className="bg-background min-h-screen">
+          <Header />
+          <main className="flex flex-col">
+            <HeroSection />
+            <div className="flex-1">
+              <HomeScreen />
+            </div>
+          </main>
+        </div>
       </HydrationBoundary>
     );
   } catch (error) {
     console.error(error);
-    return <HomeScreen />;
+    return (
+      <div className="bg-background min-h-screen">
+        <Header />
+        <main className="flex flex-col">
+          <HeroSection />
+          <div className="flex-1">
+            <HomeScreen />
+          </div>
+        </main>
+      </div>
+    );
   }
 }
 
