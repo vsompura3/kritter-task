@@ -1,5 +1,5 @@
-import HomeScreen from "@/components/home/HomeScreen";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return <HomeScreen />;
+export default async function Home() {
+  redirect("/tv");
 }
