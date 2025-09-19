@@ -1,7 +1,12 @@
 export const tmdbQueryKeys = {
   trendingTVShows: (timeWindow: "day" | "week") => [
-    "trendingTVShows",
+    "tv",
+    "trending",
     timeWindow,
   ],
-  tvShowDetails: (tvShowId: number) => ["tvShowDetails", tvShowId],
+  airingTodayTVShows: ["tv", "airing_today"],
+  onTheAirTVShows: ["tv", "on_the_air"],
+  popularTVShows: ["tv", "popular"],
+  topRatedTVShows: ["tv", "top_rated"],
+  tvShowDetails: (tvShowId: number) => ["tv", "details", tvShowId],
 };

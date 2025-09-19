@@ -1,5 +1,6 @@
 import coreApi from "@/lib/coreApi";
-import { TMDBResponseBody, TVShow } from "@/types/tmdb";
+import { apiPayloadWithDefaults } from "@/lib/utils";
+import { TMDBRequestBody, TMDBResponseBody, TVShow } from "@/types/tmdb";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -9,13 +10,61 @@ function getErrorMessage(error: unknown): string {
 }
 
 export const getTrendingTVShows = async (
-  timeWindow: "day" | "week" = "week",
+  payload: TMDBRequestBody<"week" | "day"> = apiPayloadWithDefaults("week"),
 ): Promise<TMDBResponseBody<TVShow[]>> => {
   try {
-    const response = await coreApi.get(`/trending/tv/${timeWindow}`);
+    const response = await coreApi.get(`/trending/tv/${payload?.body}`);
     return response.data;
   } catch (error: unknown) {
-    console.error("ERROR: TMDB Trending Fetch Error:", error);
+    console.error("ERROR: TMDB Trending TV Shows Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getTVShowsAiringToday = async (
+  payload: TMDBRequestBody<null> = apiPayloadWithDefaults(null),
+): Promise<TMDBResponseBody<TVShow[]>> => {
+  try {
+    const response = await coreApi.get(`tv/airing_today?page=${payload.page}`);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB Airing Today TV Shows Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getTVShowsOnTheAir = async (
+  payload: TMDBRequestBody<null> = apiPayloadWithDefaults(null),
+): Promise<TMDBResponseBody<TVShow[]>> => {
+  try {
+    const response = await coreApi.get(`tv/on_the_air?page=${payload.page}`);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB On The Air TV Shows Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getPopularTVShows = async (
+  payload: TMDBRequestBody<null> = apiPayloadWithDefaults(null),
+): Promise<TMDBResponseBody<TVShow[]>> => {
+  try {
+    const response = await coreApi.get(`tv/popular?page=${payload.page}`);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB Popular TV Shows Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getTopRatedTVShows = async (
+  payload: TMDBRequestBody<null> = apiPayloadWithDefaults(null),
+): Promise<TMDBResponseBody<TVShow[]>> => {
+  try {
+    const response = await coreApi.get(`tv/top_rated?page=${payload.page}`);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB Top Rated TV Shows Fetch Error:", error);
     throw new Error(getErrorMessage(error));
   }
 };

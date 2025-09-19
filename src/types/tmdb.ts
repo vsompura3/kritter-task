@@ -117,6 +117,13 @@ export interface TVShow {
   vote_count?: number;
 }
 
+export interface TMDBRequestBody<T> {
+  page?: number;
+  search?: string;
+  sort_by?: string;
+  body?: T;
+}
+
 export interface TMDBResponseBody<T> {
   page: number;
   results: T;
