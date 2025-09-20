@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { getPosterImageUrl } from "@/lib/utils";
+import { getGenreFromGenreId, getTMDBPosterImageUrl } from "@/lib/utils";
 import { TVShow } from "@/types/tmdb";
 import { Play, Star } from "lucide-react";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export function ContentCard({ show }: ContentCardProps) {
       >
         <div className="relative aspect-[2/3]">
           <img
-            src={getPosterImageUrl(show.poster_path) || "/placeholder.svg"}
+            src={getTMDBPosterImageUrl(show.poster_path) || "/placeholder.svg"}
             alt={show.name}
             className="h-full w-full object-cover"
           />
@@ -57,13 +57,17 @@ export function ContentCard({ show }: ContentCardProps) {
             {show.name}
           </h3>
           <div className="flex items-center justify-between">
-            <p className="text-xs text-gray-300">{"Comedy"}</p>
-            {/* <p className="text-xs text-gray-300">{show.genre}</p> */}
+            {show.genre_ids && show.genre_ids.length > 0 && (
+              <p className="text-muted-foreground text-xs">
+                {getGenreFromGenreId(show.genre_ids[0])}
+              </p>
+            )}
 
             <div className="flex items-center gap-1">
               <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-              <span className="text-xs text-white">{"PG"}</span>
-              {/* <span className="text-xs text-white">{show.rating}</span> */}
+              <span className="text-xs text-white">
+                {show?.adult ? "A" : "U/A 13+"}
+              </span>
             </div>
           </div>
         </div>
@@ -75,11 +79,16 @@ export function ContentCard({ show }: ContentCardProps) {
         </h3>
         <div className="flex items-center justify-between">
           {/* <p className="text-muted-foreground text-xs">{show.genre}</p> */}
-          <p className="text-muted-foreground text-xs">Comedy</p>
+          {show.genre_ids && show.genre_ids.length > 0 && (
+            <p className="text-muted-foreground text-xs">
+              {getGenreFromGenreId(show.genre_ids[0])}
+            </p>
+          )}
           <div className="flex items-center gap-1">
             <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-            <span className="text-foreground text-xs">{"PG"}</span>
-            {/* <span className="text-foreground text-xs">{show.rating}</span> */}
+            <span className="text-foreground text-xs">
+              {show?.adult ? "A" : "U/A 13+"}
+            </span>
           </div>
         </div>
       </div>
