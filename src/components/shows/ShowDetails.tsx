@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import Loader from "../common/loader";
 import MediaMetadata from "../common/media-metadata";
 import { Button } from "../ui/button";
+import { EpisodesSection } from "./EpisodeSection";
 import GenreList from "./GenreList";
 
 function ShowDetails() {
@@ -23,7 +24,7 @@ function ShowDetails() {
   }
 
   return (
-    <div className="relative h-[85vh] overflow-hidden rounded-t-md">
+    <div className="relative min-h-dvh">
       <div className="absolute inset-0">
         <img
           src={getTMDBBackdropImageUrl(showData?.backdrop_path)}
@@ -85,6 +86,7 @@ function ShowDetails() {
             Watch Now
           </Button>
         </div>
+        {showData?.seasons && <EpisodesSection seasons={showData?.seasons} />}
       </div>
     </div>
   );

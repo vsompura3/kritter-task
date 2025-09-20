@@ -5,10 +5,11 @@ import {
   getTopRatedTVShows,
   getTrendingTVShows,
   getTVShowDetails,
+  getTVShowEpisodeDetails,
   getTVShowsAiringToday,
   getTVShowsOnTheAir,
 } from "@/services/tmdb/tmdb.service";
-import { TMDBResponseBody, TVShow } from "@/types/tmdb";
+import { Season, TMDBResponseBody, TVShow } from "@/types/tmdb";
 import { useQuery } from "@tanstack/react-query";
 
 export const useTrendingTVShows = (timeWindow: "day" | "week" = "week") => {
@@ -60,6 +61,18 @@ export const useTVShowDetails = (tvShowId: number) => {
   return useQuery<TVShow, Error>({
     queryKey: tmdbQueryKeys.tvShowDetails(tvShowId),
     queryFn: () => getTVShowDetails(tvShowId),
+    staleTime: 1000 * 60 * 5,
+    retry: 3,
+  });
+};
+
+export const useTVShowEpisodeDetails = (
+  seriesId: number,
+  seasonNumber: number,
+) => {
+  return useQuery<Season, Error>({
+    queryKey: tmdbQueryKeys.tvShowEpisodeDetails(seriesId, seasonNumber),
+    queryFn: () => getTVShowEpisodeDetails(seriesId, seasonNumber),
     staleTime: 1000 * 60 * 5,
     retry: 3,
   });

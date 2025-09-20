@@ -1,6 +1,11 @@
 import coreApi from "@/lib/coreApi";
 import { apiPayloadWithDefaults } from "@/lib/utils";
-import { TMDBRequestBody, TMDBResponseBody, TVShow } from "@/types/tmdb";
+import {
+  Season,
+  TMDBRequestBody,
+  TMDBResponseBody,
+  TVShow,
+} from "@/types/tmdb";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -75,6 +80,21 @@ export const getTVShowDetails = async (tvShowId: number): Promise<TVShow> => {
     return response.data;
   } catch (error: unknown) {
     console.error("ERROR: TMDB TV Show Details Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getTVShowEpisodeDetails = async (
+  seriesId: number,
+  seasonNumber: number,
+): Promise<Season> => {
+  try {
+    const response = await coreApi.get(
+      `/tv/${seriesId}/season/${seasonNumber}`,
+    );
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB TV Show Episode Details Fetch Error:", error);
     throw new Error(getErrorMessage(error));
   }
 };

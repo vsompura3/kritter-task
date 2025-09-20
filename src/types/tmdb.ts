@@ -65,15 +65,63 @@ interface ProductionCountry {
   name: string;
 }
 
-interface Season {
+interface Crew {
+  job: string;
+  department: string;
+  credit_id: string;
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+}
+
+interface GuestStars {
+  character: string;
+  credit_id: string;
+  order: number;
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+}
+
+export interface Episode {
   air_date: string;
-  episode_count: number;
+  episode_number: number;
+  episode_type: number;
   id: number;
   name: string;
   overview: string;
-  poster_path: string;
+  production_code: string;
+  runtime: number;
   season_number: number;
+  show_id: number;
+  still_path: string;
   vote_average: number;
+  vote_count: number;
+  crew: Crew[];
+  guest_stars: GuestStars[];
+}
+
+export interface Season {
+  air_date?: string;
+  episode_count?: number;
+  id: number;
+  name?: string;
+  overview?: string;
+  poster_path?: string;
+  season_number?: number;
+  vote_average?: number;
+  _id?: string;
+  episodes?: Episode[];
 }
 
 interface SpokenLanguage {

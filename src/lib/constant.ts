@@ -9,6 +9,13 @@ export const tmdbQueryKeys = {
   popularTVShows: ["tv", "popular"],
   topRatedTVShows: ["tv", "top_rated"],
   tvShowDetails: (tvShowId: number) => ["tv", "details", tvShowId],
+  tvShowEpisodeDetails: (seriesId: number, seasonNumber: number) => [
+    "tv",
+    "episode",
+    "details",
+    seriesId,
+    seasonNumber,
+  ],
 };
 
 export const GENRE_MAP: Record<number, string> = {
