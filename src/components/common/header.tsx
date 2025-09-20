@@ -1,20 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bell, User } from "lucide-react";
+import { Search, User } from "lucide-react";
+import Link from "next/link";
 
 export function Header() {
   return (
     <header className="bg-background/80 sticky top-0 z-50 flex items-center justify-between px-8 py-4 backdrop-blur-sm">
-      <div className="text-foreground text-xl font-bold">Kritter/Star</div>
+      <Link href={"/"} className="text-foreground text-xl font-bold">
+        Kritter/Star
+      </Link>
       <div className="flex items-center gap-2">
         <Button
+          asChild
           variant="ghost"
           size="icon"
           className="text-muted-foreground hover:text-foreground relative"
         >
-          <Bell className="h-5 w-5" />
-          <div className="bg-primary absolute -top-1 -right-1 h-2 w-2 rounded-full"></div>
+          <Link href={`/explore`}>
+            <Search className="h-5 w-5" />
+            <span className="sr-only">Explore Shows</span>
+          </Link>
         </Button>
 
         <Button
@@ -23,6 +29,7 @@ export function Header() {
           className="text-muted-foreground hover:text-foreground"
         >
           <User className="h-5 w-5" />
+          <span className="sr-only">Account</span>
         </Button>
       </div>
     </header>
