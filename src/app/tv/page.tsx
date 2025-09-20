@@ -40,29 +40,23 @@ async function TVPage() {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <div className="bg-background min-h-screen">
-          <Header />
-          <main className="flex flex-col">
-            <HeroSection />
-            <div className="flex-1">
-              <HomeScreen />
-            </div>
-          </main>
-        </div>
-      </HydrationBoundary>
-    );
-  } catch (error) {
-    console.error(error);
-    return (
-      <div className="bg-background min-h-screen">
-        <Header />
         <main className="flex flex-col">
           <HeroSection />
           <div className="flex-1">
             <HomeScreen />
           </div>
         </main>
-      </div>
+      </HydrationBoundary>
+    );
+  } catch (error) {
+    console.error(error);
+    return (
+      <main className="flex flex-col">
+        <HeroSection />
+        <div className="flex-1">
+          <HomeScreen />
+        </div>
+      </main>
     );
   }
 }

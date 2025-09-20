@@ -98,3 +98,20 @@ export const getTVShowEpisodeDetails = async (
     throw new Error(getErrorMessage(error));
   }
 };
+
+export const searchTVShows = async (
+  payload: TMDBRequestBody<{ query: string }> = apiPayloadWithDefaults({
+    query: "",
+  }),
+) => {
+  const _payload = apiPayloadWithDefaults({ query: payload.body?.query || "" });
+  try {
+    const response = await coreApi.get(
+      `/search/tv?query=${encodeURIComponent(_payload?.body?.query || "")}&page=${_payload?.page}&language=en-US`,
+    );
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB Search TV Shows Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
