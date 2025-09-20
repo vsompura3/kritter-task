@@ -1,27 +1,35 @@
 "use client";
 
 import { Season } from "@/types/tmdb";
-import { TabConfig, TabList } from "../common/tab-list";
+import { type TabConfig, TabList } from "../common/tab-list";
+import SeasonList from "./SeasonList";
 
 interface EpisodesSectionProps {
   seasons: Season[];
 }
 
 export function EpisodesSection({ seasons }: EpisodesSectionProps) {
-  console.log(seasons, "Seasons");
-
-  const tabsData: TabConfig[] = seasons.map((season) => {
-    return {
-      id: season.id?.toString() || "",
-      label: "Episode",
-      content: <div>Content for {season.name}</div>,
-    };
-  });
+  const tabs: TabConfig[] = [
+    {
+      id: "1",
+      label: "Episodes",
+      content: <SeasonList seasons={seasons} />,
+    },
+    {
+      id: "2",
+      label: "More Like This",
+      content: <></>,
+    },
+    {
+      id: "3",
+      label: "Trailers & More",
+      content: <></>,
+    },
+  ];
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-white">Episodes</h2>
-      <TabList tabs={tabsData} defaultValue={tabsData[0]?.id} />
+      <TabList tabs={tabs} />
     </div>
   );
 }

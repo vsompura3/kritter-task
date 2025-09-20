@@ -1,6 +1,11 @@
 import coreApi from "@/lib/coreApi";
 import { apiPayloadWithDefaults } from "@/lib/utils";
-import { TMDBRequestBody, TMDBResponseBody, TVShow } from "@/types/tmdb";
+import {
+  Season,
+  TMDBRequestBody,
+  TMDBResponseBody,
+  TVShow,
+} from "@/types/tmdb";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -82,7 +87,7 @@ export const getTVShowDetails = async (tvShowId: number): Promise<TVShow> => {
 export const getTVShowEpisodeDetails = async (
   seriesId: number,
   seasonNumber: number,
-): Promise<any> => {
+): Promise<Season> => {
   try {
     const response = await coreApi.get(
       `/tv/${seriesId}/season/${seasonNumber}`,

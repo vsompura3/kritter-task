@@ -73,3 +73,41 @@ export const getRatingStars = (rating: number) => {
 export const getGenreFromGenreId = (genreId: number) => {
   return GENRE_MAP[genreId] || "Unknown";
 };
+
+export const formatRuntime = (minutes: number) => {
+  if (!minutes || minutes <= 0) {
+    return "Runtime not available";
+  }
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  if (hours === 0) {
+    return `${remainingMinutes}m`;
+  }
+  if (remainingMinutes === 0) {
+    return `${hours}h`;
+  }
+  return `${hours}h ${remainingMinutes}m`;
+};
+
+export const formatMultipleRuntimes = (runtimeArray: number[]): string => {
+  if (!runtimeArray || runtimeArray.length === 0) {
+    return "Runtime not available";
+  }
+
+  const validRuntimes = runtimeArray.filter(
+    (runtime) => runtime && runtime > 0,
+  );
+
+  if (validRuntimes.length === 0) {
+    return "Runtime not available";
+  }
+
+  if (validRuntimes.every((runtime) => runtime === validRuntimes[0])) {
+    return formatRuntime(validRuntimes[0]);
+  }
+
+  const min = Math.min(...validRuntimes);
+  const max = Math.max(...validRuntimes);
+
+  return `${formatRuntime(min)} - ${formatRuntime(max)}`;
+};
