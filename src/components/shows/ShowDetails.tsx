@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import Loader from "../common/loader";
 import MediaMetadata from "../common/media-metadata";
 import { Button } from "../ui/button";
+import { EpisodesSection } from "./EpisodeSection";
 import GenreList from "./GenreList";
 
 function ShowDetails() {
@@ -85,6 +86,8 @@ function ShowDetails() {
             Watch Now
           </Button>
         </div>
+        <p>sdsd</p>
+        {showData?.seasons && <EpisodesSection seasons={showData?.seasons} />}
       </div>
     </div>
   );

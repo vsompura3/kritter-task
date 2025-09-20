@@ -78,3 +78,18 @@ export const getTVShowDetails = async (tvShowId: number): Promise<TVShow> => {
     throw new Error(getErrorMessage(error));
   }
 };
+
+export const getTVShowEpisodeDetails = async (
+  seriesId: number,
+  seasonNumber: number,
+): Promise<any> => {
+  try {
+    const response = await coreApi.get(
+      `/tv/${seriesId}/season/${seasonNumber}`,
+    );
+    return response.data;
+  } catch (error: unknown) {
+    console.error("ERROR: TMDB TV Show Episode Details Fetch Error:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
