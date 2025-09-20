@@ -9,7 +9,7 @@ interface CreatedBy {
   profile_path: string | null;
 }
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
 }
@@ -89,6 +89,7 @@ export interface TVShow {
   episode_run_time?: unknown[];
   first_air_date?: string;
   genres?: Genre[];
+  genre_ids?: number[];
   homepage?: string;
   id: number;
   in_production?: boolean;
