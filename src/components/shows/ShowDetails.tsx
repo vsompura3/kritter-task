@@ -2,16 +2,18 @@
 import { useTVShowDetails } from "@/hooks/useTMDBService";
 import {
   getLanguageNameIntl,
-  getRatingStars,
   getTMDBBackdropImageUrl,
   getYearFromISODate,
 } from "@/lib/utils";
+import { Play, Plus } from "lucide-react";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import Loader from "../common/loader";
 import MediaMetadata from "../common/media-metadata";
+import { type TabConfig, TabList } from "../common/tab-list";
 import { Button } from "../ui/button";
-import { EpisodesSection } from "./EpisodeSection";
 import GenreList from "./GenreList";
+import SeasonList from "./SeasonList";
 
 function ShowDetails() {
   const params = useParams();
@@ -19,74 +21,81 @@ function ShowDetails() {
 
   const { data: showData, isPending } = useTVShowDetails(seriesId);
 
+  const tabs: TabConfig[] = [
+    {
+      id: "episodes",
+      label: "Episodes",
+      content: (
+        <SeasonList key={showData?.id} seasons={showData?.seasons || []} />
+      ),
+    },
+  ];
+
   if (isPending) {
-    return <Loader />;
+    return (
+      <div className="bg-background grid min-h-screen place-content-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
-    <div className="relative min-h-dvh">
-      <div className="absolute inset-0">
-        <img
+    <div className="bg-background min-h-screen">
+      <div className="relative h-[65vh] overflow-hidden md:h-[65] lg:h-[75vh]">
+        <Image
           src={getTMDBBackdropImageUrl(showData?.backdrop_path)}
-          className="h-full w-full object-cover"
+          alt={showData?.name || ""}
+          fill
+          className="object-cover"
+          priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-      </div>
+        <div className="from-background via-background/50 absolute inset-0 bg-gradient-to-t to-transparent" />
+        <div className="absolute right-4 bottom-6 left-4 space-y-4 md:right-6 md:bottom-8 md:left-6 md:space-y-6">
+          <div className="space-y-2">
+            <h1 className="text-3xl leading-tight font-bold text-balance text-white md:text-4xl lg:text-5xl">
+              {showData?.name}
+            </h1>
+            <MediaMetadata
+              year={
+                (showData?.first_air_date &&
+                  getYearFromISODate(showData.first_air_date)) ||
+                undefined
+              }
+              rating={showData?.adult ? "A" : "U/A 13+"}
+              language={
+                showData?.original_language &&
+                getLanguageNameIntl(showData.original_language)
+              }
+            />
+            <p className="max-w-3xl text-base leading-relaxed text-pretty text-gray-200 md:text-lg">
+              {showData?.overview}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {showData?.genres && <GenreList genres={showData?.genres} />}
+            </div>
+          </div>
 
-      <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
-        <div className="mb-6">
-          <h1 className="mb-2 text-5xl font-bold tracking-wider">
-            {showData?.name}
-          </h1>
-          <div className="mb-4 flex items-center gap-2 text-orange-400">
-            {showData?.vote_average && (
-              <div className="mb-4 flex items-center gap-3 text-orange-400">
-                <div className="flex items-center gap-1">
-                  <span className="text-xl">
-                    {getRatingStars(showData.vote_average)}
-                  </span>
-                  {/* <span className="ml-2 text-lg font-semibold text-white">
-                    {formatRating(showData.vote_average)}/10
-                  </span> */}
-                </div>
-                {showData?.vote_count && (
-                  <span className="text-sm text-gray-400">
-                    ({showData.vote_count.toLocaleString()} votes)
-                  </span>
-                )}
-              </div>
-            )}
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 !h-12 cursor-pointer px-8 text-base"
+            >
+              <Play className="size-5" />
+              Watch Latest Episode
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="!h-12 cursor-pointer border-white/20 bg-transparent px-8 text-base text-white hover:bg-white/10"
+            >
+              <Plus className="size-5" />
+              Add to Watchlist
+            </Button>
           </div>
         </div>
-
-        <MediaMetadata
-          year={
-            (showData?.first_air_date &&
-              getYearFromISODate(showData.first_air_date)) ||
-            undefined
-          }
-          rating={showData?.adult ? "A" : "U/A 13+"}
-          language={
-            showData?.original_language &&
-            getLanguageNameIntl(showData.original_language)
-          }
-        />
-
-        <p className="mb-6 max-w-2xl text-lg leading-relaxed text-gray-200">
-          {showData?.overview}
-        </p>
-
-        {showData?.genres && <GenreList genres={showData?.genres} />}
-
-        <div className="flex items-center gap-4">
-          <Button className="flex transform items-center gap-3 rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 px-8 py-4 text-lg font-semibold text-white transition-all duration-200 hover:scale-105 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600">
-            <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            Watch Now
-          </Button>
-        </div>
-        {showData?.seasons && <EpisodesSection seasons={showData?.seasons} />}
+      </div>
+      <div className="mt-6">
+        <TabList tabs={tabs} />
       </div>
     </div>
   );

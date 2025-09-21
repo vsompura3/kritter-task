@@ -1,6 +1,7 @@
 import { Season } from "@/types/tmdb";
 import { useParams } from "next/navigation";
-import { TabList, type TabConfig } from "../common/tab-list";
+import { useState } from "react";
+import CustomSelect from "../common/custom-select";
 import EpisodeDetail from "./EpisodeDetail";
 
 interface SeasonListProps {
@@ -10,18 +11,31 @@ interface SeasonListProps {
 function SeasonList({ seasons }: SeasonListProps) {
   const params = useParams();
   const seriesId: number = Number(params?.series_id) || 0;
-
-  const tabs: TabConfig[] = seasons.map((season, idx) => ({
-    id: season.id.toString(),
-    label: season.name || `Season ${season.season_number || idx + 1}`,
-    content: (
-      <EpisodeDetail seasonNumber={season.season_number} seriesId={seriesId} />
-    ),
-  }));
+  const [selectedSeason, setSelectedSeason] = useState<string>(
+    seasons[0]?.season_number.toString() || "",
+  );
 
   return (
-    <div>
-      <TabList tabs={tabs} />
+    <div className="space-y-6">
+      <div className="px-4 md:px-6">
+        <CustomSelect
+          options={
+            seasons
+              ? seasons.map((season) => ({
+                  id: season?.id?.toString(),
+                  label: season?.name || `Season ${season?.season_number}`,
+                  value: season?.season_number.toString(),
+                }))
+              : []
+          }
+          value={selectedSeason}
+          onValueChange={(value) => setSelectedSeason(value)}
+        />
+      </div>
+      <EpisodeDetail
+        seasonNumber={Number(selectedSeason)}
+        seriesId={seriesId}
+      />
     </div>
   );
 }

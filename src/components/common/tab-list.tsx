@@ -4,6 +4,7 @@ export interface TabConfig {
   id: string;
   label: string;
   content: React.ReactNode;
+  disabled?: boolean;
 }
 
 export interface TabListProps {
@@ -23,7 +24,8 @@ export function TabList({ tabs, defaultValue, className = "" }: TabListProps) {
           <TabsTrigger
             key={tab.id}
             value={tab.id}
-            className="rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-4 text-lg font-medium text-gray-400 data-[state=active]:border-white data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-none"
+            disabled={tab.disabled || false}
+            className="rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 py-4 text-lg font-medium text-gray-400 data-[state=active]:border-white data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-none"
           >
             {tab.label}
           </TabsTrigger>

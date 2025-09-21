@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function ContentRow({ title, shows }: Props) {
-  console.log(shows);
   return (
     <section className="space-y-2 pl-6">
       <div className="flex items-center justify-between">

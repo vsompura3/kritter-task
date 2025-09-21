@@ -28,7 +28,9 @@ function MediaMetadata({
       {metadataItems.map((item, index) => (
         <React.Fragment key={index}>
           <span>{item}</span>
-          {index < metadataItems.length - 1 && <span>{separator}</span>}
+          {index < metadataItems.length - 1 && (
+            <span className="mx-2">{separator}</span>
+          )}
         </React.Fragment>
       ))}
     </div>
