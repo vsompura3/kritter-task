@@ -86,7 +86,7 @@ export const useSearchTVShows = (query: string) =>
     queryKey: ["search-tv", query],
     queryFn: () =>
       searchTVShows({
-        body: { query },
+        body: { query: query?.trim()?.toLowerCase() || "" },
       }),
     enabled: !!query,
     staleTime: 1000 * 60,

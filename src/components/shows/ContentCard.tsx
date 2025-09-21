@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { getGenreFromGenreId, getTMDBPosterImageUrl } from "@/lib/utils";
 import { TVShow } from "@/types/tmdb";
 import { Play, Star } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -26,18 +27,13 @@ export function ContentCard({ show }: ContentCardProps) {
         className={`bg-card relative overflow-hidden rounded-lg transition-all duration-300 ease-out ${isHovered ? "scale-105" : "scale-100"} `}
       >
         <div className="relative aspect-[2/3]">
-          <img
-            src={getTMDBPosterImageUrl(show.poster_path) || "/placeholder.svg"}
+          <Image
+            src={getTMDBPosterImageUrl(show.poster_path)}
             alt={show.name}
+            fill
+            loading="lazy"
             className="h-full w-full object-cover"
           />
-
-          {/* {show.badge && (
-            <div className="bg-primary absolute top-2 left-2 rounded px-2 py-1 text-xs font-medium text-white">
-              {show.badge}
-            </div>
-          )} */}
-
           <div
             className={`absolute inset-0 flex items-center justify-center bg-black/60 transition-all duration-300 ${isHovered ? "opacity-100" : "opacity-0"} `}
           >
@@ -78,7 +74,6 @@ export function ContentCard({ show }: ContentCardProps) {
           {show.name}
         </h3>
         <div className="flex items-center justify-between">
-          {/* <p className="text-muted-foreground text-xs">{show.genre}</p> */}
           {show.genre_ids && show.genre_ids.length > 0 && (
             <p className="text-muted-foreground text-xs">
               {getGenreFromGenreId(show.genre_ids[0])}

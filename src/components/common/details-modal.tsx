@@ -20,7 +20,7 @@ function DetailsModal() {
       open={true}
       onOpenChange={() => router.back()}
     >
-      <DialogContent className="w-full max-w-[60rem] border-transparent bg-slate-900 p-0 text-white">
+      <DialogContent className="max-h-[50%] w-full max-w-[60rem] border-transparent bg-slate-900 p-0 text-white">
         <DialogTitle className="sr-only">Show Details</DialogTitle>
         <ShowDetails />
       </DialogContent>

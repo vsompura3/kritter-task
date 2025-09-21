@@ -1,6 +1,7 @@
 import { useTVShowEpisodeDetails } from "@/hooks/useTMDBService";
 import { formatRuntime, getTMDBPosterImageUrl } from "@/lib/utils";
 import { Play } from "lucide-react";
+import Image from "next/image";
 
 interface EpisodeDetailProps {
   seasonNumber?: number;
@@ -25,9 +26,11 @@ function EpisodeDetail({ seasonNumber = 1, seriesId }: EpisodeDetailProps) {
           className="group flex cursor-pointer gap-4 rounded-lg p-4 transition-colors hover:bg-white/5"
         >
           <div className="relative h-24 w-40 flex-shrink-0 overflow-hidden rounded-md bg-gray-800">
-            <img
+            <Image
               src={getTMDBPosterImageUrl(episode?.still_path)}
               alt={episode.name}
+              fill
+              loading="lazy"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
