@@ -15,8 +15,6 @@ const SERIES_ID = 60059;
 export function HeroSection() {
   const { data: showData } = useTVShowDetails(SERIES_ID);
 
-  console.log(showData, "HeroSection data");
-
   return (
     <div className="relative h-[60vh] overflow-hidden md:h-[70vh]">
       <div

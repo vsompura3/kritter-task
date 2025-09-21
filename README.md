@@ -1,6 +1,6 @@
 # Kritter Task
 
-A modern Next.js application for exploring movies and TV shows using The Movie Database (TMDB) API. Features server-side rendering, parallel routes with modals, and optimized performance.
+Kritter Task for Streaming app UI
 
 ## Features
 
@@ -20,64 +20,22 @@ A modern Next.js application for exploring movies and TV shows using The Movie D
 - **Data Fetching:** Tanstack Query for server state management
 - **Deployment:** Vercel
 
-## Prerequisites
+## Choices
 
-Before running this application, make sure you have the following installed:
+- Parallel and Intercepting route.
+- Tanstack Query for Data Fetching and Catching.
+- ShadCN for UI library
+- SSR for shows to display immediately.
+- Debouncing for search input.
 
-- Node.js (version 18.0 or higher)
-- npm, yarn, or pnpm
-- Git
+## Known Issues
 
-## Getting Started
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/vsompura3/kritter-task
-   cd kritter-task
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-
-   ```
-
-3. **Set up environment variables**
-
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   Update the `.env.local` file with your configuration:
-
-   ```env
-   NEXT_PUBLIC_TMDB_API_KEY=your_tmdb_api_key
-   NEXT_PUBLIC_API_KEY_ACCESS_TOKEN=your_tmdb_api_access_token
-   NEXT_PUBLIC_TMDB_BASE_URL=https://api.themoviedb.org/3
-   NEXT_PUBLIC_TMDB_IMAGE_PREFIX_URL=https://image.tmdb.org/t/p
-   ```
-
-4. **Run the development server**
-
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
-
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
-
-## Performance
-
-- **Lighthouse Score:** 95+ across all metrics
-- **Bundle Analysis:** Use `npm run analyze` to analyze bundle size
-- **Image Optimization:** Automatic WebP conversion and lazy loading
-- **Code Splitting:** Automatic route-based code splitting
+- Scrolling and animations can be improved.
+- Individual Show loading can be used for more smoother use.
+- Image optimization and handling can be improved.
+- Data rendering can be improved for a polished app as receives multiple type of data.
+- Overall improvements can be made for responsiveness and observed few issues in table type screen view.
+- Skeleton UI can be improved for in-progress fetching data.
 
 ## Authors
 
