@@ -118,7 +118,7 @@ export interface Season {
   name?: string;
   overview?: string;
   poster_path?: string;
-  season_number?: number;
+  season_number: number;
   vote_average?: number;
   _id?: string;
   episodes?: Episode[];
@@ -157,7 +157,7 @@ export interface TVShow {
   poster_path?: string;
   production_companies?: ProductionCompany[];
   production_countries?: ProductionCountry[];
-  seasons?: Season[];
+  seasons: Season[];
   spoken_languages?: SpokenLanguage[];
   status?: string;
   tagline?: string;

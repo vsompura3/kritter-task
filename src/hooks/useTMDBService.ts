@@ -17,7 +17,7 @@ export const useTrendingTVShows = (timeWindow: "day" | "week" = "week") => {
   return useQuery<TMDBResponseBody<TVShow[]>, Error>({
     queryKey: tmdbQueryKeys.trendingTVShows(timeWindow),
     queryFn: () => getTrendingTVShows({ body: timeWindow }),
-    enabled: !timeWindow,
+    enabled: !!timeWindow,
     staleTime: 1000 * 60 * 5,
     retry: 3,
   });
@@ -75,7 +75,7 @@ export const useTVShowEpisodeDetails = (
   return useQuery<Season, Error>({
     queryKey: tmdbQueryKeys.tvShowEpisodeDetails(seriesId, seasonNumber),
     queryFn: () => getTVShowEpisodeDetails(seriesId, seasonNumber),
-    enabled: !seriesId || !seasonNumber,
+    enabled: !!String(seasonNumber),
     staleTime: 1000 * 60 * 5,
     retry: 3,
   });

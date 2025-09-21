@@ -1,31 +1,28 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
 import ShowDetails from "../shows/ShowDetails";
-import {
-  Dialog,
-  DialogContent,
-  DialogOverlay,
-  DialogTitle,
-} from "../ui/dialog";
+import { ScrollArea } from "../ui/scroll-area";
+import { Sheet, SheetContent } from "../ui/sheet";
 
-function DetailsModal() {
+export default function DetailsModal() {
   const router = useRouter();
 
   return (
-    <Dialog
-      modal={true}
+    <Sheet
       defaultOpen={true}
       open={true}
       onOpenChange={() => router.back()}
+      modal={false}
     >
-      <DialogContent className="max-h-[50%] w-full max-w-[60rem] border-transparent bg-slate-900 p-0 text-white">
-        <DialogTitle className="sr-only">Show Details</DialogTitle>
-        <ShowDetails />
-      </DialogContent>
-    </Dialog>
+      <SheetContent
+        side="bottom"
+        className="mx-auto h-[80vh] max-w-4xl overflow-hidden rounded-t-md"
+      >
+        <ScrollArea className="h-full rounded-t-md">
+          <ShowDetails />
+        </ScrollArea>
+      </SheetContent>
+    </Sheet>
   );
 }
-
-export default DetailsModal;

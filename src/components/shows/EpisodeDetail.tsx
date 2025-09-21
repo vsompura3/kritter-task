@@ -2,6 +2,7 @@ import { useTVShowEpisodeDetails } from "@/hooks/useTMDBService";
 import { formatRuntime, getTMDBPosterImageUrl } from "@/lib/utils";
 import { Play } from "lucide-react";
 import Image from "next/image";
+import Loader from "../common/loader";
 
 interface EpisodeDetailProps {
   seasonNumber?: number;
@@ -9,17 +10,22 @@ interface EpisodeDetailProps {
 }
 
 function EpisodeDetail({ seasonNumber = 1, seriesId }: EpisodeDetailProps) {
-  const { data: episodesData } = useTVShowEpisodeDetails(
+  const { data: episodesData, isPending } = useTVShowEpisodeDetails(
     seriesId,
     seasonNumber,
   );
-
-  console.log(episodesData, "EpisodeDetail data");
-
   const episodes = episodesData?.episodes || [];
 
+  if (isPending) {
+    return (
+      <div className="mt-4">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-4">
+    <div className="mx-2 space-y-4">
       {episodes.map((episode) => (
         <div
           key={episode.id}
@@ -45,7 +51,7 @@ function EpisodeDetail({ seasonNumber = 1, seriesId }: EpisodeDetailProps) {
               S{episode.season_number} E{episode.episode_number} •{" "}
               {episode.air_date} • {formatRuntime(episode.runtime)}
             </div>
-            <p className="text-sm leading-relaxed text-gray-300">
+            <p className="line-clamp-3 text-sm leading-relaxed text-gray-300 md:line-clamp-none">
               {episode.overview || "No overview available."}
             </p>
           </div>

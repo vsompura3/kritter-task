@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function Header() {
   return (
-    <header className="bg-background/80 sticky top-0 z-50 flex items-center justify-between px-8 py-4 backdrop-blur-sm">
+    <header className="bg-background/50 sticky top-0 z-50 flex items-center justify-between px-8 py-4 backdrop-blur-sm">
       <Link href={"/"} className="text-foreground text-xl font-bold">
         Kritter/Star
       </Link>

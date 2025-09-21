@@ -136,7 +136,7 @@ export default function ExploreContent() {
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
-            className="pr-10 pl-10"
+            className="h-12 pr-10 pl-10 text-lg"
             autoComplete="off"
           />
           {search && (
@@ -168,7 +168,8 @@ export default function ExploreContent() {
                     <Image
                       src={getTMDBPosterImageUrl(show.poster_path)}
                       alt={show.name}
-                      fill
+                      width={48}
+                      height={72}
                       loading="lazy"
                       className="h-12 w-8 rounded object-cover"
                     />
