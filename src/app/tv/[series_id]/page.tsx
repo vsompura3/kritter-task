@@ -6,14 +6,16 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
 interface SeriesPageProps {
-  params: { series_id: string };
+  params: Promise<{ series_id: string }>;
 }
 
 async function SeriesPage({ params }: SeriesPageProps) {
-  const seriesId = Number(params.series_id);
+  const { series_id } = await params;
+  const seriesId = Number(series_id);
+
   try {
     const queryClient = makeQueryClient();
-    queryClient.prefetchQuery({
+    await queryClient.prefetchQuery({
       queryKey: tmdbQueryKeys.tvShowDetails(seriesId),
       queryFn: () => getTVShowDetails(seriesId),
     });

@@ -30,7 +30,8 @@ export function ContentCard({ show }: ContentCardProps) {
           <Image
             src={getTMDBPosterImageUrl(show.poster_path)}
             alt={show.name}
-            fill
+            width={192}
+            height={288}
             loading="lazy"
             className="h-full w-full object-cover"
           />

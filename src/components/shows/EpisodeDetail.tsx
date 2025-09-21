@@ -35,7 +35,8 @@ function EpisodeDetail({ seasonNumber = 1, seriesId }: EpisodeDetailProps) {
             <Image
               src={getTMDBPosterImageUrl(episode?.still_path)}
               alt={episode.name}
-              fill
+              width={160}
+              height={96}
               loading="lazy"
               className="h-full w-full object-cover"
             />

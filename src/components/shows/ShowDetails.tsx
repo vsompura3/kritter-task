@@ -45,7 +45,8 @@ function ShowDetails() {
         <Image
           src={getTMDBBackdropImageUrl(showData?.backdrop_path)}
           alt={showData?.name || ""}
-          fill
+          width={1920}
+          height={1080}
           className="object-cover"
           priority
         />
