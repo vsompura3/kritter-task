@@ -4,7 +4,7 @@ Kritter Task for Streaming app UI
 
 ## Features
 
-- **Movie & TV Show Discovery** - Browse popular and trending content
+- **TV Show Discovery** - Browse popular and trending content
 - **Detailed Information Pages** - Comprehensive details for series and movies
 - **Modal Overlays** - Smooth modal experience using Next.js parallel routes
 - **TMDB Integration** - Real-time data from The Movie Database API

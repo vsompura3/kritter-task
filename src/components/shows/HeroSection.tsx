@@ -10,7 +10,7 @@ import {
 import { Play, Plus } from "lucide-react";
 import MediaMetadata from "../common/media-metadata";
 
-const SERIES_ID = 60059;
+const SERIES_ID = 110492;
 
 export function HeroSection() {
   const { data: showData } = useTVShowDetails(SERIES_ID);
